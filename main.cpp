@@ -4,6 +4,24 @@
 
 using namespace std;
 
+void imprimirTablero(int tablero[9][9]) {
+    for(int i = 0; i<9;i++){
+        for(int j = 0; j<9;j++){
+            if(tablero[i][j] == 0)cout << ". ";
+            else cout << tablero[i][j] << " ";
+            
+            if(j == 2  || j == 5)cout << "| ";
+        }
+        
+        if(i == 2 || i == 5){
+            cout<< endl;
+            cout<< "------+-------+------";
+        }
+        cout<< endl;
+    }
+}
+
+
 int main(int argc, char* argv[]){
 
     //Comprobamos si se paso un archivo de texto
@@ -51,13 +69,9 @@ int main(int argc, char* argv[]){
         
     }
 
-    for(int i = 0; i<9;i++){
-        for(int j = 0; j<9;j++){
-            cout<< tablero[i][j];
-        }
-        cout<< endl;
-    }
+  imprimirTablero(tablero);
 
 
     return 0;
 }
+
