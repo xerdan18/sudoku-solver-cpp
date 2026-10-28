@@ -28,14 +28,36 @@ int main(int argc, char* argv[]){
 
     //Leemos las lineas
     string linea;
+    int tablero[9][9];
     for(int i = 0; i < 9 ; i++){
+        //Obtengo la lienea y veo si esta bien el formato
         getline(archivo, linea);
         if(linea.size() != 9){
             cout<< "Error: la linea " << i+1 << " tiene " << linea.size() << " caracteres (se esperaban 9)" << endl;
             return 1;
         }
-        cout << linea << endl;
+
+        //Relleno el tablero segun el .txt
+        for(int j = 0; j < 9; j++){
+            char c = linea[j];
+
+            if(c == '0'|| c == '.') tablero[i][j] = 0;
+            else if(c >= '1' && c <= '9')tablero[i][j] = c - '0';
+            else{
+                cout << "Caracter no valido: " << c << " en la columnna "<< j+1 << "  y fila " << i+1 << endl;
+                return 1;
+            }
+        }
+        
     }
+
+    for(int i = 0; i<9;i++){
+        for(int j = 0; j<9;j++){
+            cout<< tablero[i][j];
+        }
+        cout<< endl;
+    }
+
 
     return 0;
 }
