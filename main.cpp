@@ -21,38 +21,24 @@ void imprimirTablero(int tablero[9][9]) {
     }
 }
 
-
-int main(int argc, char* argv[]){
-
-    //Comprobamos si se paso un archivo de texto
-   if (argc < 2) {
-        cout << "Uso: " << argv[0] << " <nombre_del_archivo>" << endl;
-        return 1;
-    }    
-    
-    //Vemos el nombre
-    char* nombreArchivo = argv[1];
-    cout << "El nombrre del arrchivo recibido es: " << nombreArchivo << endl;
-
-
+bool leerTablero(const string& nombreArchivo, int tablero[9][9]){
     //Abrimos el archivo
     ifstream archivo(nombreArchivo);
 
     //Compruebo si se abrio bien
     if(!archivo){
         cout << "Error al abrir el archivo" << endl;
-        return 1;
+        return false;
     }
 
     //Leemos las lineas
     string linea;
-    int tablero[9][9];
     for(int i = 0; i < 9 ; i++){
         //Obtengo la lienea y veo si esta bien el formato
         getline(archivo, linea);
         if(linea.size() != 9){
             cout<< "Error: la linea " << i+1 << " tiene " << linea.size() << " caracteres (se esperaban 9)" << endl;
-            return 1;
+            return false;
         }
 
         //Relleno el tablero segun el .txt
@@ -63,14 +49,26 @@ int main(int argc, char* argv[]){
             else if(c >= '1' && c <= '9')tablero[i][j] = c - '0';
             else{
                 cout << "Caracter no valido: " << c << " en la columnna "<< j+1 << "  y fila " << i+1 << endl;
-                return 1;
+                return false;
             }
         }
-        
     }
 
-  imprimirTablero(tablero);
+    return true;
+}
 
+int main(int argc, char* argv[]){
+
+    //Comprobamos si se paso un archivo de texto
+    if (argc < 2) {
+        cout << "Uso: " << argv[0] << " <nombre_del_archivo>" << endl;
+        return 1;
+    }    
+
+    int tablero[9][9];
+    if(!leerTablero(argv[1],tablero))return 1;
+    
+    imprimirTablero(tablero);
 
     return 0;
 }
