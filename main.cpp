@@ -89,6 +89,24 @@ bool sePuedePoner(int tablero[9][9], int fila, int col, int num){
     return true;
 }
 
+bool tableroValido(int tablero[9][9]){
+    //Recorre toddas las celdas y salta las vacias (0)
+    //Si no es 0, pregunta  sePuedePoner, si dda false termina
+
+    for(int i = 0; i<9;i++){
+        for (int j = 0; j <9; j++){
+            if(tablero[i][j] != 0){
+                if(!sePuedePoner(tablero, i, j, tablero[i][j])){
+                    cout<< "Conflicto en fila " << i+1 << " y columnna "<< j+1 << " con el numeero "<< tablero[i][j]<< endl;
+                    return false;
+                }
+            }
+        }
+    }
+
+    return true;
+}
+
 int main(int argc, char* argv[]){
 
     //Comprobamos si se paso un archivo de texto
@@ -99,7 +117,9 @@ int main(int argc, char* argv[]){
 
     int tablero[9][9];
     if(!leerTablero(argv[1],tablero))return 1;
-    
+
+    if(!tableroValido(tablero))return 1;
+
     imprimirTablero(tablero);
 
     return 0;
