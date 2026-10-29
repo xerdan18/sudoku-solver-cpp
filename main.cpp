@@ -107,6 +107,35 @@ bool tableroValido(int tablero[9][9]){
     return true;
 }
 
+bool resolver(int t[9][9]){
+    int fila = -1;
+    int col = -1;
+
+    for(int i = 0; i < 9 ; i++){
+        for(int j = 0; j<9;j++){
+            if(t[i][j] == 0){
+                fila = i;
+                col = j;
+                break;
+            }
+        }
+        if(fila != -1)break;
+    }
+
+    if(fila == -1)return true; //Sudoku resuelto
+
+    for(int val = 1; val <=9 ;val++){
+        if(sePuedePoner(t, fila, col, val)){
+            t[fila][col] = val;
+            if(resolver(t))return true;
+            else t[fila][col] = 0;
+        }
+
+    }
+
+    return false;
+}
+
 int main(int argc, char* argv[]){
 
     //Comprobamos si se paso un archivo de texto
@@ -122,6 +151,15 @@ int main(int argc, char* argv[]){
 
     imprimirTablero(tablero);
 
+    cout<< endl;
+
+    if(resolver(tablero)){
+        cout << "Solucion: "<< endl;
+        imprimirTablero(tablero);
+    }else{
+        cout <<"Sudoku sin solucion"<< endl;
+        return 1;
+    }
     return 0;
 }
 
