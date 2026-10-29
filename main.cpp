@@ -34,7 +34,7 @@ bool leerTablero(const string& nombreArchivo, int tablero[9][9]){
     //Leemos las lineas
     string linea;
     for(int i = 0; i < 9 ; i++){
-        //Obtengo la lienea y veo si esta bien el formato
+        //Obtengo la linea y veo si esta bien el formato
         getline(archivo, linea);
         if(linea.size() != 9){
             cout<< "Error: la linea " << i+1 << " tiene " << linea.size() << " caracteres (se esperaban 9)" << endl;
@@ -48,7 +48,7 @@ bool leerTablero(const string& nombreArchivo, int tablero[9][9]){
             if(c == '0'|| c == '.') tablero[i][j] = 0;
             else if(c >= '1' && c <= '9')tablero[i][j] = c - '0';
             else{
-                cout << "Caracter no valido: " << c << " en la columnna "<< j+1 << "  y fila " << i+1 << endl;
+                cout << "Caracter no valido: " << c << " en la columna "<< j+1 << " y fila " << i+1 << endl;
                 return false;
             }
         }
@@ -73,8 +73,8 @@ bool sePuedePoner(int tablero[9][9], int fila, int col, int num){
     }
 
     //Recorro caja
-    //Primero tengo que ver en que cajaa  estoy  parado, hay  9 
-    //y cada  una  empieza enn una celad distinta, con esto vemos donde arranca cada una
+    //Primero tengo que ver en que caja estoy parado, hay 9
+    //y cada una empieza en una celda distinta, con esto vemos donde arranca cada una
     int inicioFila = fila - fila % 3;
     int inicioCol = col - col % 3;
 
@@ -90,14 +90,14 @@ bool sePuedePoner(int tablero[9][9], int fila, int col, int num){
 }
 
 bool tableroValido(int tablero[9][9]){
-    //Recorre toddas las celdas y salta las vacias (0)
-    //Si no es 0, pregunta  sePuedePoner, si dda false termina
+    //Recorre todas las celdas y salta las vacias (0)
+    //Si no es 0, pregunta sePuedePoner, si da false termina
 
     for(int i = 0; i<9;i++){
         for (int j = 0; j <9; j++){
             if(tablero[i][j] != 0){
                 if(!sePuedePoner(tablero, i, j, tablero[i][j])){
-                    cout<< "Conflicto en fila " << i+1 << " y columnna "<< j+1 << " con el numeero "<< tablero[i][j]<< endl;
+                    cout<< "Conflicto en fila " << i+1 << " y columna "<< j+1 << " con el numero "<< tablero[i][j]<< endl;
                     return false;
                 }
             }
