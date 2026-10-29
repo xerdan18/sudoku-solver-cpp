@@ -57,6 +57,38 @@ bool leerTablero(const string& nombreArchivo, int tablero[9][9]){
     return true;
 }
 
+bool sePuedePoner(int tablero[9][9], int fila, int col, int num){
+    //Recorro la fila
+    for(int j = 0; j < 9; j++){
+        if(j != col){
+            if(tablero[fila][j] == num)return false;
+        }
+    }
+
+    //Recorro columna
+    for(int i = 0; i < 9; i++){
+        if(i != fila){
+            if(tablero[i][col] ==  num)return false;
+        }
+    }
+
+    //Recorro caja
+    //Primero tengo que ver en que cajaa  estoy  parado, hay  9 
+    //y cada  una  empieza enn una celad distinta, con esto vemos donde arranca cada una
+    int inicioFila = fila - fila % 3;
+    int inicioCol = col - col % 3;
+
+    for(int i = inicioFila; i < 3 + inicioFila ; i++){
+        for(int j = inicioCol; j < 3 + inicioCol; j++){
+            if(i != fila && j != col){
+                if(tablero[i][j] == num)return false;
+            }
+        }
+    }
+
+    return true;
+}
+
 int main(int argc, char* argv[]){
 
     //Comprobamos si se paso un archivo de texto
